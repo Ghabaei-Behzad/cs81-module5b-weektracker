@@ -54,6 +54,16 @@ function lowHoursHighEnjoyment(log, minEnjoyment = 8, maxHours = 2) {
     return entry.enjoyment >= minEnjoyment && entry.hoursSpent < maxHours;
   });
 }
+/**
+ * Calculates the average enjoyment score for activities that occurred during a specific time of day.
+ * Uses .filter() to isolate entries, .map() to extract enjoyment scores, and .reduce() to average them.
+ */
+function averageEnjoymentByTime(log, time) {
+  const matchingEntries = log.filter(entry => entry.timeOfDay === time);
+  const totalEnjoyment = matchingEntries.reduce((sum, entry) => sum + entry.enjoyment, 0);
+  // Return the average (total divided by count), handling potential division by zero
+  return matchingEntries.length > 0 ? totalEnjoyment / matchingEntries.length : 0;
+}
 
 
 
