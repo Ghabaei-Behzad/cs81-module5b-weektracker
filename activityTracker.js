@@ -48,12 +48,13 @@ function totalHoursForCategory(log, categoryName) {
  * Finds activities that have an enjoyment rating of 8 or higher but lasted less than 2 hours.
  * Uses .filter() with multiple conditions to identify efficient sources of joy.
  */
-function lowHoursHighEnjoyment(log, minEnjoyment = 8, maxHours = 2) {
-  return log.filter(entry => {
-    // Return true only if both conditions are met
-    return entry.enjoyment >= minEnjoyment && entry.hoursSpent < maxHours;
-  });
+function lowHoursHighEnjoymentDays(log, minEnjoyment = 8, maxHours = 2) {
+  return log
+    .filter(entry => entry.enjoyment >= minEnjoyment && entry.hoursSpent < maxHours)
+    .map(entry => entry.day); // Extracts only the 'day' property
 }
+const efficientDays = lowHoursHighEnjoymentDays(myWeek);
+
 /**
  * Calculates the average enjoyment score for activities that occurred during a specific time of day.
  * Uses .filter() to isolate entries, .map() to extract enjoyment scores, and .reduce() to average them.
@@ -74,6 +75,7 @@ function filterByCondition(testFn) {
   // We use the built-in .filter() method and pass it the logic provided via testFn
   return myWeek.filter(testFn);
 }
+const shortAndSweet = filterByCondition(act => act.hoursSpent <= 1 && act.enjoyment >= 8);
 
 //printing statements
 console.log("Analyzing My Weekly Activities...");
@@ -85,8 +87,10 @@ console.log(`Total hours spent on physical activity: ${totalHoursForCategory(myW
 // 2. Average enjoyment (using our previous averageEnjoymentByTime function)
 console.log(`Average enjoyment for morning activities: ${averageEnjoymentByTime(myWeek, 'morning').toFixed(2)} / 10`);
 
-// 3. Low-effort (short time), high-enjoyment
-const shortAndSweet = filterByCondition(act => act.hoursSpent <= 1 && act.enjoyment >= 8);
+//3. Tell the days with Low Hours and HighEnjoyment
+console.log("Low Hours High Enjoyment (Display Days only):", efficientDays);
+
+// 4. Low-effort (short time), high-enjoyment
 console.log("Low-effort, high-enjoyment activities:");
 shortAndSweet.forEach(act => console.log(`- ${act.activity} (${act.hoursSpent} hours, Enjoyment: ${act.enjoyment})`));
 
