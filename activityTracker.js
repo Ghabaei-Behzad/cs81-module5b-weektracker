@@ -44,6 +44,18 @@ function totalHoursForCategory(log, categoryName) {
     .reduce((sum, entry) => sum + entry.hoursSpent, 0);
 }
 
+/**
+ * Finds activities that have an enjoyment rating of 8 or higher but lasted less than 2 hours.
+ * Uses .filter() with multiple conditions to identify efficient sources of joy.
+ */
+function lowHoursHighEnjoyment(log, minEnjoyment = 8, maxHours = 2) {
+  return log.filter(entry => {
+    // Return true only if both conditions are met
+    return entry.enjoyment >= minEnjoyment && entry.hoursSpent < maxHours;
+  });
+}
+
+
 
 
 
