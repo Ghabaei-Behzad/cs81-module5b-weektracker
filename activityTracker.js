@@ -64,6 +64,36 @@ function averageEnjoymentByTime(log, time) {
   // Return the average (total divided by count), handling potential division by zero
   return matchingEntries.length > 0 ? totalEnjoyment / matchingEntries.length : 0;
 }
+/**
+ * A higher-order function that accepts a "callback" function as an input.
+ * This allows us to pass in any custom logic (condition) at the moment we call it.
+ * parameter {Function} testFn - A function that returns true or false for each activity.
+ * returns {Array} - The filtered array of activities.
+ */ 
+function filterByCondition(testFn) {
+  // We use the built-in .filter() method and pass it the logic provided via testFn
+  return myWeek.filter(testFn);
+}
+
+//printing statements
+console.log("Analyzing My Weekly Activities...");
+console.log("-------------------------------------------------------");
+
+// 1. Total hours (using our previous totalHoursForCategory function)
+console.log(`Total hours spent on physical activity: ${totalHoursForCategory(myWeek, 'physical')}`);
+
+// 2. Average enjoyment (using our previous averageEnjoymentByTime function)
+console.log(`Average enjoyment for morning activities: ${averageEnjoymentByTime(myWeek, 'morning').toFixed(2)} / 10`);
+
+// 3. Low-effort (short time), high-enjoyment
+const shortAndSweet = filterByCondition(act => act.hoursSpent <= 1 && act.enjoyment >= 8);
+console.log("Low-effort, high-enjoyment activities:");
+shortAndSweet.forEach(act => console.log(`- ${act.activity} (${act.hoursSpent} hours, Enjoyment: ${act.enjoyment})`));
+
+console.log("\nReflection:");
+console.log("Even though I thought I'd enjoy social events most, solo activities like \nHiking and Painting were consistently higher-rated. Writing a reusable \nfilterByCondition function helped me isolate patterns I didn’t expect.");
+
+
 
 
 
