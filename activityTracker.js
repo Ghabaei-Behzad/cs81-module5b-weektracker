@@ -33,7 +33,7 @@ const myWeek = [
   { day: "Sunday", activity: "Yoga", category: "physical",  hoursSpent: 1, enjoyment: 8,  timeOfDay: "morning"  }
 ];
 /**
- * Calculates the total hours spent on a specific category of activity ( physical ).
+ * 1. Calculates the total hours spent on a specific category of activity ( physical ).
  * Uses .filter() to select relevant entries and .reduce() to sum their hours.
  */
 function totalHoursForCategory(log, categoryName) {
@@ -45,7 +45,7 @@ function totalHoursForCategory(log, categoryName) {
 }
 
 /**
- * Finds activities that have an enjoyment rating of 8 or higher but lasted less than 2 hours.
+ * 2. Finds activities that have an enjoyment rating of 8 or higher but lasted less than 2 hours.
  * Uses .filter() with multiple conditions to identify efficient sources of joy.
  */
 function lowHoursHighEnjoymentDays(log, minEnjoyment = 8, maxHours = 2) {
@@ -56,7 +56,7 @@ function lowHoursHighEnjoymentDays(log, minEnjoyment = 8, maxHours = 2) {
 const efficientDays = lowHoursHighEnjoymentDays(myWeek);
 
 /**
- * Calculates the average enjoyment score for activities that occurred during a specific time of day.
+ * 3. Calculates the average enjoyment score for activities that occurred during a specific time of day.
  * Uses .filter() to isolate entries, .map() to extract enjoyment scores, and .reduce() to average them.
  */
 function averageEnjoymentByTime(log, time) {
@@ -66,7 +66,7 @@ function averageEnjoymentByTime(log, time) {
   return matchingEntries.length > 0 ? totalEnjoyment / matchingEntries.length : 0;
 }
 /**
- * A higher-order function that accepts a "callback" function as an input.
+ * 4. A higher-order function that accepts a "callback" function as an input.
  * This allows us to pass in any custom logic (condition) at the moment we call it.
  * parameter {Function} testFn - A function that returns true or false for each activity.
  * returns {Array} - The filtered array of activities.
@@ -84,11 +84,11 @@ console.log("-------------------------------------------------------");
 // 1. Total hours (using our previous totalHoursForCategory function)
 console.log(`Total hours spent on physical activity: ${totalHoursForCategory(myWeek, 'physical')}`);
 
-// 2. Average enjoyment (using our previous averageEnjoymentByTime function)
-console.log(`Average enjoyment for morning activities: ${averageEnjoymentByTime(myWeek, 'morning').toFixed(2)} / 10`);
-
-//3. Tell the days with Low Hours and HighEnjoyment
+// 2. Tell the days with Low Hours and High Enjoyment Days
 console.log("Low Hours High Enjoyment (Display Days only):", efficientDays);
+
+// 3. Average enjoyment (using our previous averageEnjoymentByTime function)
+console.log(`Average enjoyment for morning activities: ${averageEnjoymentByTime(myWeek, 'morning').toFixed(2)} / 10`);
 
 // 4. Low-effort (short time), high-enjoyment
 console.log("Low-effort, high-enjoyment activities:");
